@@ -13,8 +13,16 @@ class API1:
 with open('product_groups.json') as f:
     data = json.load(f)
 
+result = []
 for p in data:
-    print(p['name'])
+    result.append({
+        "id": uuid4(),
+        "name": p['name'],
+        "parent_id": p['parent_id'],
+        ## add ancestors(names of the parents)
+    })
+
+print(result)
 
 # object_hook = group_by_division
 
