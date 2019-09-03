@@ -1,0 +1,24 @@
+[{
+    "id": 1,
+    "name": "oil",
+    "parent_id": "None",
+    "children_ids": [2,3]
+},
+{
+    "id": 2,
+    "name": "sunflower oil",
+    "parent_id": 1,
+    "children_ids": []
+},
+{
+    "id": 3,
+    "name": "olive oil",
+    "parent_id": 1,
+    "children_ids": [4]
+},
+{
+    "id": 4,
+    "name": "extra virgin olive oil",
+    "parent_id":  3,
+    "children_ids": []
+}]
