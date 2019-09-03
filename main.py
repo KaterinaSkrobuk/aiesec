@@ -13,6 +13,9 @@ class API1:
 with open('product_groups.json') as f:
     data = json.load(f)
 
+for p in data:
+    print(p['name'])
+
 # object_hook = group_by_division
 
 
@@ -27,13 +30,13 @@ with open('product_groups.json') as f:
 #     groups_by_division[division].append(group)
 
 
-def get(self, obj_id: str):
-    """Get an object."""
-    return self._storage.get(obj_id)
-
-
-def create(self, data: dict):
-    """Store one new object."""
-    new_obj = {**data, "id": uuid4()}
-    self._storage[new_obj["id"]] = new_obj
-    return new_obj
+# def get(self, obj_id: str):
+#     """Get an object."""
+#     return self._storage.get(obj_id)
+#
+#
+# def create(self, data: dict):
+#     """Store one new object."""
+#     new_obj = {**data, "id": uuid4()}
+#     self._storage[new_obj["id"]] = new_obj
+#     return new_obj
