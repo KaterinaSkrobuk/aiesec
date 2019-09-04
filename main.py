@@ -1,5 +1,10 @@
+from collections import defaultdict
 from uuid import uuid4
 import json
+import collections
+
+from treelib import Node, Tree
+
 
 class API1:
 
@@ -7,44 +12,36 @@ class API1:
         self._storage = {}
 
 
-# with open('product_groups.json', 'w') as f:
-#     json.dump(f, indent=4, sort_keys=True)
+with open('test.json') as f:
+    rawData = json.load(f)
 
-with open('product_groups.json') as f:
-    data = json.load(f)
+data = {}
+for product in rawData:
+    data[product['id']] = product
 
-result = []
-for p in data:
-    result.append({
+for key, product in data.items():
+    parentID = product["parent_id"]
+
+    ancestors = []
+
+    if parentID:
+        ancestors = [data[parentID]['name']]
+
+    while parentID:
+        parentProduct = data[parentID]
+        if not parentProduct['parent_id']:
+            break
+        parentID = parentProduct['parent_id']
+        ancestors.append(data[parentID]['name'])
+
+    newProduct = {
         "id": uuid4(),
-        "name": p['name'],
-        "parent_id": p['parent_id'],
-        ## add ancestors(names of the parents)
-    })
-
-print(result)
-
-# object_hook = group_by_division
+        "name": product['name'],
+        "parent_id": product['parent_id'],
+        "ancestors": ancestors
+    }
+    print(newProduct)
 
 
-# def group_by_division(group):
-#     return (group['fullName'], group['divName'])
-# Group  division
-# groups_by_division = {}
-# for i in range(len(data)):
-#     group, division = data[i]
-#     if division not in groups_by_division.keys():
-#         groups_by_division[division] = []
-#     groups_by_division[division].append(group)
 
 
-# def get(self, obj_id: str):
-#     """Get an object."""
-#     return self._storage.get(obj_id)
-#
-#
-# def create(self, data: dict):
-#     """Store one new object."""
-#     new_obj = {**data, "id": uuid4()}
-#     self._storage[new_obj["id"]] = new_obj
-#     return new_obj
